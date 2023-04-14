@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Series</title>
+</head>
+<body style="background-color: beige ;">
+  <i> <u> <h1>Top Series del Momento!</h1> </u> </i>
+   
+  <hr>
+
+  {% for serie in series %}
+    
+   <h2> {{ serie.nombre }} </h2> 
+   Numero de temporadas: {{ serie.cant_temp }} <br><br>
+   Resumen: <i> {{ serie.resumen }} </i> <br><br>
+   Puntaje: <a style="color: green"> {{ serie.puntaje }} </a>
+    <hr>
+  {% endfor %}
+
+  
+    
+
+</body>
+</html>
