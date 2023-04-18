@@ -1,0 +1,14 @@
+{% extends 'Top_Series/base.html' %}
+    
+{% block titulo %} Top Series del Momento! <hr> {% endblock %}
+
+{% block contenido %}
+
+<i> <h2>Ingresa una nueva serie</h2> </i>
+<form action="{% url 'cargar-serie'%}" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Guardar" >
+</form>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'Top_Series/base.html' %}
+
+{% block titulo %} Top Series del Momento! {% endblock %}
+
+
+  
+{% block contenido %}  
+<hr>
+  {% for serie in series %}
+  
+  <h2> {{ serie.nombre }} </h2> 
+  Numero de temporadas: {{ serie.cant_temp }} <br><br>
+  Resumen: <i> {{ serie.resumen }} </i> <br><br>
+  Puntaje: <a style="color: green"> {{ serie.puntaje }} </a>
+  <hr>
+  {% endfor %} <hr>
+
+ <i><h2> Comentarios de usuarios </h2> </i>
+  
+
+  {% for comentario in comentarios %}
+    
+    <li>
+    Usuario: {{comentario.nombre_usuario}} | {{comentario.texto}} |
+    </li>
+    <br>
+  {% endfor %} <hr> <hr>
+  
+  
+  <i><h2> Proximos lanzamientos </h2> </i>
+  {% for lanzamientos in prox_lanzamientos %}
+    {{lanzamientos.nombre_proxima_serie}} | {{lanzamientos.fecha_lanzamiento}}
+    <br>
+    {% endfor %}
+{% endblock %}
+
+    

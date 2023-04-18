@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Top_Series.views import mostrar_serie, cargar_serie
+from Top_Series.views import mostrar_contenido, cargar_serie, cargar_comentario, cargar_lanzamiento, Buscar_Serie
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('root', mostrar_serie),
-    path('root/form', cargar_serie, name='carga-formulario'),
+    path('root/', mostrar_contenido, name='mostrar-serie'),
+    path('root/form/series', cargar_serie, name='cargar-serie'),
+    path('root/form/comentarios', cargar_comentario, name='cargar-comentario'),
+    path('root/form/prox_lanzamientos', cargar_lanzamiento, name='cargar-prox-lanzamiento'),
+    path('root/form/search', Buscar_Serie.as_view(), name='Busqueda-Serie'),
 ]

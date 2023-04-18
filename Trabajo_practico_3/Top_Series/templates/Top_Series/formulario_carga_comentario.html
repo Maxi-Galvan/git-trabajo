@@ -1,0 +1,12 @@
+{% block contenido %}
+
+<i> <h2>Ingresa un nuevo comentario</h2> </i>
+<form action="{% url 'cargar-comentario'%}" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Guardar" >
+</form>
+    
+{% endblock %}
+
+    
