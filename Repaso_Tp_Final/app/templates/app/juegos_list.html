@@ -1,0 +1,27 @@
+{% extends 'app/base.html' %} 
+
+{% block main %}
+<a href="{% url 'logout' %}">{{user.username}} | Exit</a> 
+<ul>
+    
+    {% for juego in object_list %}
+
+    <li>
+        {{juego.nombre}}:
+        <a href="{% url 'juego-detail' juego.id %}">  Detalle</a>  | 
+        
+        {% if user.is_authenticated and juego.publisher == user%}
+        <a href="{% url 'juego-update' juego.id %}">   Actualizar</a>  |     
+        
+        <a href="{% url 'juego-delete' juego.id %}">   Borrar</a>  |  
+        {% endif %}
+        
+    </li>
+        <br>
+    {% endfor %}
+</ul>
+
+<br><br>
+<a href="{% url 'juego-create' %}">Agregar un juego nuevo</a>
+
+{% endblock %}
