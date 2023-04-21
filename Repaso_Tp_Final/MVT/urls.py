@@ -19,6 +19,9 @@ from app.views import (index, JuegoList, JuegoDetail,
                         JuegoCreate, JuegoUpdate, JuegoDelete, 
                         SignUp, Login, Logout)
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +33,8 @@ urlpatterns = [
     path('juego/<pk>/delete', JuegoDelete.as_view(), name='juego-delete'),
     path('signup/', SignUp.as_view(), name='signup'),
     path('login', Login.as_view(), name='login'), #Link principal
-
     path('logout/', Logout.as_view(), name='logout'), 
+    
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
