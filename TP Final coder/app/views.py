@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 def index(request):
     Juegos = juegos.objects.all()
 
-    return render(request, 'app/base.html', {'juegos': Juegos})
+    return render(request, 'app/index.html', {'juegos': Juegos})
 
 #Class View que muestra una lista de juegos con la opcion de desplegar mas informacion
 class JuegoList(ListView):
@@ -66,3 +66,4 @@ class Logout(LogoutView):
 class ProfileUpdate(UpdateView):
     model = Profile
     fields = '__all__'
+
