@@ -15,3 +15,8 @@ class Profile(models.Model):
     user = models.OneToOneField(to= User, on_delete=models.CASCADE, related_name='profile')
     imagen = models.ImageField(upload_to='profile', null = True, blank=True)
 
+
+class Mensaje(models.Model):
+    mensaje = models.TextField(max_length=1000)
+    email = models.EmailField()
+    destinatario = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name= "destinatario")

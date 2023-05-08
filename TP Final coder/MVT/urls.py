@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from app.views import (index, JuegoList, JuegoDetail, 
                         JuegoCreate, JuegoUpdate, JuegoDelete, 
-                        SignUp, Login, Logout, ProfileUpdate)
+                        SignUp, Login, Logout, ProfileUpdate, MensajeCreate, MensajeList, MensajeDelete)
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,7 +25,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='base'),
+    path('', index, name='index'),
     path('juego/list', JuegoList.as_view(), name='juego-list'),
     path('juego/<pk>/detail', JuegoDetail.as_view(), name='juego-detail'),
     path('juego/create', JuegoCreate.as_view(), name='juego-create'),
@@ -35,6 +35,10 @@ urlpatterns = [
     path('login', Login.as_view(), name='login'), #Link principal / Esta ruta de logeo, la concidero la primera vista a ver, tenemos el index claramente, pero al sacarla me salta muchos errores.
     path('logout/', Logout.as_view(), name='logout'), 
     path('profile/<pk>/update', ProfileUpdate.as_view(), name='profile-update'), 
+    path('mensaje/create',MensajeCreate.as_view(), name='mensaje-create'), 
+    path('mensaje/list',MensajeList.as_view(), name='mensaje-list'),
+    path('mensaje/<pk>/delete',MensajeDelete.as_view(), name='mensaje-delete'), 
+
     
 ]
 

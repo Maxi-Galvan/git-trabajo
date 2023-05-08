@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from app.models import juegos, Profile
+from app.models import juegos, Profile, Mensaje
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
@@ -9,9 +9,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Index que recibe todos los templates heredados.
 def index(request):
-    Juegos = juegos.objects.all()
-
-    return render(request, 'app/index.html', {'juegos': Juegos})
+    context = {
+        'posts': juegos.objects.all() 
+    }
+    return render(request, 'app/index.html', context)
 
 #Class View que muestra una lista de juegos con la opcion de desplegar mas informacion
 class JuegoList(ListView):
@@ -26,13 +27,17 @@ class JuegoDetail(DetailView):
 class JuegoCreate(LoginRequiredMixin, CreateView):
     model = juegos
     success_url = reverse_lazy('juego-list')
-    fields = '__all__'
+    fields = ['nombre', 'descripcion', 'imagen']
+    
+    def form_valid(self, form):
+        form.instance.publisher = self.request.user
+        return super().form_valid(form)
 
 #Class formulario que permite actualiar/cambiar datos de un post
 class JuegoUpdate(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
     model = juegos
     success_url = reverse_lazy('juego-list')
-    fields = '__all__'
+    fields = ['nombre', 'descripcion', 'imagen']
 
     def test_func(self):
         user_id = self.request.user.id
@@ -56,7 +61,7 @@ class SignUp(CreateView):
 
 
 class Login(LoginView):
-    next_page = reverse_lazy('juego-list')
+    next_page = reverse_lazy('index')
     
 
 class Logout(LogoutView):
@@ -65,5 +70,29 @@ class Logout(LogoutView):
 
 class ProfileUpdate(UpdateView):
     model = Profile
-    fields = '__all__'
+    fields = ['imagen']
+    success_url = reverse_lazy('index')
 
+class MensajeCreate(CreateView):
+    model = Mensaje
+    fields = '__all__'
+    success_url = reverse_lazy('mensaje-list')
+
+
+class MensajeList(LoginRequiredMixin, ListView):
+    model = Mensaje
+    context_object_name = 'mensajes'
+    
+    def get_queryset(self):
+        return Mensaje.objects.filter(destinatario=self.request.user.id).all()
+
+
+class MensajeDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model=Mensaje
+    success_url = reverse_lazy('mensaje-list')
+    
+    def test_func(self):
+        user_id = self.request.user.id
+        mensaje_id = self.kwargs.get('pk')
+
+        return Mensaje.objects.filter(destinatario=user_id).all()
