@@ -25,14 +25,14 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'),
+    path('index', index, name='index'),
     path('juego/list', JuegoList.as_view(), name='juego-list'),
     path('juego/<pk>/detail', JuegoDetail.as_view(), name='juego-detail'),
     path('juego/create', JuegoCreate.as_view(), name='juego-create'),
     path('juego/<pk>/update', JuegoUpdate.as_view(), name='juego-update'),
     path('juego/<pk>/delete', JuegoDelete.as_view(), name='juego-delete'),
     path('signup/', SignUp.as_view(), name='signup'),
-    path('login', Login.as_view(), name='login'), #Link principal / Esta ruta de logeo, la concidero la primera vista a ver, tenemos el index claramente, pero al sacarla me salta muchos errores.
+    path('', Login.as_view(), name='login'), #Link principal / Esta ruta de logeo, la concidero la primera vista a ver, tenemos el index claramente, pero al sacarla me salta muchos errores.
     path('logout/', Logout.as_view(), name='logout'), 
     path('profile/<pk>/update', ProfileUpdate.as_view(), name='profile-update'), 
     path('mensaje/create',MensajeCreate.as_view(), name='mensaje-create'), 
@@ -41,5 +41,4 @@ urlpatterns = [
 
     
 ]
-
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

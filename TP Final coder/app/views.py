@@ -53,6 +53,10 @@ class JuegoDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = reverse_lazy('juego-list')
     fields = '__all__'
 
+    def test_func(self):
+        return self.request.user.is_authenticated
+        
+
 #Class que permite el registro y logeo y deslogeo de un usuario
 class SignUp(CreateView):
     form_class = UserCreationForm

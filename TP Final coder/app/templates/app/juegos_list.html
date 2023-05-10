@@ -2,11 +2,15 @@
 
 {% block main %}
 
-<img src="{{user.profile.imagen.url}}" height="100&" width="100" style="border-radius: 50%; margin: right 10px;"> 
-<a href="{% url 'profile-update' user.profile.id %}"> {{user.username}}</a> | <a href="{% url 'logout' %}"> Exit</a> 
-
-<ul>
-    
+<!-- Este pequeño bloque Muestra el perfil del usuario -->
+{% if user.profile %}
+    <img src="{{user.profile.imagen.url}}" height="100&" width="100" style="border-radius: 50%; margin: right 10px;"> 
+    <a href="{% url 'profile-update' user.profile.id %}"> {{user.username}}</a> | <a href="{% url 'logout' %}"> Exit</a> 
+{% else %}
+{{user.username}} | <a href="{% url 'logout' %}"> Exit</a> 
+{% endif %}
+<!-- .................................................. -->
+<ul>    
     {% if post %} <h2>NO HAY POSTEOS</h2> {% endif %}
     
     {% for juego in object_list %}
